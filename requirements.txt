@@ -1,0 +1,9 @@
+opencv-python-headless
+scikit-image
+scikit-learn
+scipy
+networkx
+matplotlib
+numpy
+pandas
+python-louvain
