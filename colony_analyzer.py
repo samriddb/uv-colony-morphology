@@ -160,16 +160,16 @@ def segment(gray_masked, plate_mask, plate_info, min_colony_px=300, edge_margin=
     binary[(gray_masked > thresh_val) & (inner_mask == 255)] = 255
 
     # --- morphological clean ---
-    k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    opened = cv2.morphologyEx(binary, cv2.MORPH_OPEN,  k, iterations=2)
-    closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, k, iterations=2)
+    k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
+    opened = cv2.morphologyEx(binary, cv2.MORPH_OPEN,  k, iterations=3)
+    closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, k, iterations=4)
 
     cleaned = remove_small_objects(closed.astype(bool), max_size=min_colony_px, connectivity=2)
     cleaned_u8 = cleaned.astype(np.uint8) * 255
 
     # --- distance transform + local maxima as watershed seeds ---
     dist = ndimage.distance_transform_edt(cleaned)
-    min_seed_gap = max(8, int(dist.max() * 0.15))
+    min_seed_gap = max(20, int(dist.max() * 0.4))
 
     coords = peak_local_max(dist, min_distance=min_seed_gap, labels=cleaned)
     seed_mask = np.zeros(dist.shape, dtype=bool)
