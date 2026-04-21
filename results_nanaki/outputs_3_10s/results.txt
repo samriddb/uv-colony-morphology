@@ -1,0 +1,157 @@
+(base) nanaki@Nanakis-MacBook-Pro-514 colony_analysis % python main.py --pre images/pre.png --post images/post.png
+
+[pre-UV]  images/pre.png
+  detecting plate boundary ...
+  preprocessing ...
+  segmenting colonies ...
+  [selector] Opening interactive colony selector …
+             Left-click to toggle | R = reset | ENTER / Q = confirm
+  [selector] kept    13  colonies: [np.int32(1), np.int32(2), np.int32(3), np.int32(4), np.int32(5), np.int32(6), np.int32(7), np.int32(8), np.int32(9), np.int32(10), np.int32(11), np.int32(12), np.int32(13)]
+  measuring colony props ...
+  → 13 colonies after edge filtering
+  running knn (k=5) ...
+  building colony graph ...
+  shape analysis ...
+  saving figures ...
+  saved → outputs/pre_uv_seg_clean.png
+  saved → outputs/pre_uv_seg_labeled.png
+  saved → outputs/pre_uv_size_dist.png
+  saved → outputs/pre_uv_knn.png
+  saved → outputs/pre_uv_graph.png
+  saved → outputs/pre_uv_orientation.png
+
+═══════════════════════════════════════════════════════
+  pre-UV
+═══════════════════════════════════════════════════════
+  segmentation
+  ───────────────────────────────────────────────────────
+  colonies          : 13
+  mean area         :    5,074.7 px²
+  median area       :    4,237.0 px²
+  mean diameter     :       76.7 px
+  mean eccentricity :      0.610   (0=circle 1=line)
+  mean solidity     :      0.949   (1=convex)
+
+  nearest neighbour
+  ───────────────────────────────────────────────────────
+  mean nn1 dist     :       65.6 px
+  median nn1 dist   :       53.4 px
+  min nn1 dist      :       42.5 px
+  max nn1 dist      :      117.6 px
+
+  graph
+  ───────────────────────────────────────────────────────
+  nodes               : 13
+  edges               : 43
+  avg_degree          : 6.615
+  avg_clust           : 0.303
+  n_components        : 1
+  density             : 0.551
+
+  shape
+  ───────────────────────────────────────────────────────
+  mean compactness  :      0.795   (1=circle)
+  mean elongation   :      1.330
+  mean angle        :       75.5°
+  angle std         :       47.0°
+
+  top 10 colonies by area
+ label  area_px  equiv_diam  eccentricity  orientation_deg  solidity
+    13  14841.0  137.463261      0.510234       -14.300322  0.972097
+    12   7183.0   95.633047      0.537389        58.340747  0.960037
+    11   7144.0   95.373074      0.318905       -61.432267  0.942729
+     2   6854.0   93.417257      0.508756       -84.431818  0.936083
+     7   5703.0   85.213175      0.701950       -22.613873  0.945458
+    10   4417.0   74.992660      0.669557       -88.687822  0.972693
+     9   4237.0   73.448730      0.544812        88.852902  0.977844
+     1   3820.0   69.740770      0.428894       -87.851704  0.982510
+     5   3235.0   64.178890      0.828104       -15.533492  0.925079
+     4   2400.0   55.279064      0.753914        -2.298052  0.922367
+
+
+[post-UV]  images/post.png
+  detecting plate boundary ...
+  preprocessing ...
+  segmenting colonies ...
+  [selector] Opening interactive colony selector …
+             Left-click to toggle | R = reset | ENTER / Q = confirm
+  [selector] kept    24  colonies: [np.int32(1), np.int32(2), np.int32(3), np.int32(4), np.int32(5), np.int32(6), np.int32(7), np.int32(8), np.int32(9), np.int32(10), np.int32(11), np.int32(12), np.int32(13), np.int32(14), np.int32(15), np.int32(16), np.int32(17), np.int32(18), np.int32(19), np.int32(20), np.int32(21), np.int32(22), np.int32(23), np.int32(24)]
+  [selector] removed 1 colonies: [np.int32(25)]
+  measuring colony props ...
+  → 23 colonies after edge filtering
+  running knn (k=5) ...
+  building colony graph ...
+  shape analysis ...
+  saving figures ...
+  saved → outputs/post_uv_seg_clean.png
+  saved → outputs/post_uv_seg_labeled.png
+  saved → outputs/post_uv_size_dist.png
+  saved → outputs/post_uv_knn.png
+  saved → outputs/post_uv_graph.png
+  saved → outputs/post_uv_orientation.png
+
+═══════════════════════════════════════════════════════
+  post-UV
+═══════════════════════════════════════════════════════
+  segmentation
+  ───────────────────────────────────────────────────────
+  colonies          : 23
+  mean area         :    9,199.8 px²
+  median area       :    7,291.0 px²
+  mean diameter     :       99.5 px
+  mean eccentricity :      0.678   (0=circle 1=line)
+  mean solidity     :      0.936   (1=convex)
+
+  nearest neighbour
+  ───────────────────────────────────────────────────────
+  mean nn1 dist     :       75.9 px
+  median nn1 dist   :       76.8 px
+  min nn1 dist      :       44.0 px
+  max nn1 dist      :      144.4 px
+
+  graph
+  ───────────────────────────────────────────────────────
+  nodes               : 23
+  edges               : 70
+  avg_degree          : 6.087
+  avg_clust           : 0.251
+  n_components        : 1
+  density             : 0.277
+
+  shape
+  ───────────────────────────────────────────────────────
+  mean compactness  :      0.723   (1=circle)
+  mean elongation   :      1.424
+  mean angle        :       95.3°
+  angle std         :       53.6°
+
+  top 10 colonies by area
+ label  area_px  equiv_diam  eccentricity  orientation_deg  solidity
+     1  43261.0  234.694729      0.807501        71.688789  0.944955
+     8  19658.0  158.206646      0.791298         7.357759  0.960802
+    17  15696.0  141.367492      0.711311         2.724423  0.900052
+    18  14199.0  134.457162      0.519566        28.762773  0.894031
+    19  13412.0  130.677805      0.446746       -11.355975  0.914808
+    15  12591.0  126.615003      0.849846        51.850525  0.942511
+     5  11403.0  120.493778      0.502203       -21.917733  0.942942
+    21   9923.0  112.402651      0.764172       -59.834866  0.936397
+     9   9417.0  109.499300      0.627125         0.734152  0.935340
+     3   8492.0  103.982451      0.546397        57.297674  0.929408
+
+
+[comparison]  pre vs post ...
+
+═══════════════════════════════════════════════════════
+  pre / post summary
+═══════════════════════════════════════════════════════
+  colonies_pre                : 13
+  colonies_post               : 23
+  colony_delta                : 10
+  median_area_pre             : 4237.00
+  median_area_post            : 7291.00
+  coverage_pct_pre            : 12.61
+  coverage_pct_post           : 38.36
+  coverage_delta_pct          : 25.75
+  saved → outputs/comparison.png
+
+done. all figures saved to ./outputs/

@@ -51,7 +51,7 @@ def analyse_plate(img_path, tag, k=5):
     gray = preprocess(img_rgb, plate_mask)
 
     print(f"  segmenting colonies ...")
-    labels, binary, dist = segment(gray, plate_mask, plate_info)
+    labels, binary, dist = segment(gray, plate_mask, plate_info, img_rgb)
 
     print(f"  measuring colony props ...")
     df = measure(labels, img_rgb, plate_info)
