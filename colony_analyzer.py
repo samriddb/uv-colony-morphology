@@ -44,25 +44,25 @@ OUT_DIR = "outputs"
 # PLOTTING SETUP & STYLE
 # ══════════════════════════════════════════════════════════════════════════════
 
-# consistent style across all plots
+# consistent style across all plots - WHITE BACKGROUND THEME
 plt.rcParams.update({
-    "figure.facecolor":   "#1a1a1a",
-    "axes.facecolor":     "#1a1a1a",
-    "axes.edgecolor":     "#444444",
-    "axes.labelcolor":    "#cccccc",
-    "xtick.color":        "#888888",
-    "ytick.color":        "#888888",
-    "text.color":         "#cccccc",
-    "grid.color":         "#2e2e2e",
+    "figure.facecolor":   "white",
+    "axes.facecolor":     "white",
+    "axes.edgecolor":     "#333333",
+    "axes.labelcolor":    "#333333",
+    "xtick.color":        "#333333",
+    "ytick.color":        "#333333",
+    "text.color":         "#333333",
+    "grid.color":         "#cccccc",
     "grid.linewidth":     0.5,
     "axes.grid":          True,
-    "axes.titlecolor":    "#ffffff",
+    "axes.titlecolor":    "#000000",
     "axes.titlesize":     11,
     "axes.labelsize":     9,
     "xtick.labelsize":    8,
     "ytick.labelsize":    8,
-    "legend.facecolor":   "#2a2a2a",
-    "legend.edgecolor":   "#444444",
+    "legend.facecolor":   "#f8f8f8",
+    "legend.edgecolor":   "#cccccc",
     "legend.fontsize":    8,
     "figure.titlesize":   13,
     "figure.titleweight": "bold",
@@ -160,16 +160,16 @@ def segment(gray_masked, plate_mask, plate_info, min_colony_px=300, edge_margin=
     binary[(gray_masked > thresh_val) & (inner_mask == 255)] = 255
 
     # --- morphological clean ---
-    k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
-    opened = cv2.morphologyEx(binary, cv2.MORPH_OPEN,  k, iterations=3)
-    closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, k, iterations=4)
+    k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    opened = cv2.morphologyEx(binary, cv2.MORPH_OPEN,  k, iterations=2)
+    closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, k, iterations=2)
 
     cleaned = remove_small_objects(closed.astype(bool), max_size=min_colony_px, connectivity=2)
     cleaned_u8 = cleaned.astype(np.uint8) * 255
 
     # --- distance transform + local maxima as watershed seeds ---
     dist = ndimage.distance_transform_edt(cleaned)
-    min_seed_gap = max(20, int(dist.max() * 0.4))
+    min_seed_gap = max(8, int(dist.max() * 0.15))
 
     coords = peak_local_max(dist, min_distance=min_seed_gap, labels=cleaned)
     seed_mask = np.zeros(dist.shape, dtype=bool)
@@ -404,7 +404,7 @@ def _save(fig, path):
 
 def save_seg_clean(img_rgb, labels, out_dir, prefix):
     """colored segmentation overlay - no labels, no axes, just the visual"""
-    fig, ax = plt.subplots(figsize=(8, 8), facecolor="black")
+    fig, ax = plt.subplots(figsize=(8, 8), facecolor="white")
     ax.set_position([0, 0, 1, 1])   # fill the whole figure
 
     overlay = np.clip(img_rgb.astype(float) / 255.0, 0.0, 1.0)
@@ -543,7 +543,7 @@ def save_orientation(df, out_dir, prefix):
     fig.suptitle(f"{prefix.upper()} — growth orientation")
 
     ax = fig.add_subplot(111, polar=True)
-    ax.set_facecolor("#1a1a1a")
+    ax.set_facecolor("white")
 
     angles = df["orientation_deg"].dropna().values % 180
     angles_rad = np.deg2rad(angles)
